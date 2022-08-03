@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="/css/home.css" />
+
+<!--
+<div id="home-container">
+    <div id="feed-posts">
+        <div id="posts">posts</div>
+        <div id="comments">comments</div>
+    </div>
+    <div id="user-friends">
+        abc
+    </div>
+</div>
+
+-->
+
+<div class="home_container">
+  <section id="feed_posts">
+    <h3>Posts</h3>
+    <% if(locals.user){%>
+    <!--this won't work as if user knows route 
+                and object id then in inspect it can add form and make the post so, we add authentication
+            on route side   passport.checkAuthentication which is defined already-->
+    <form action="/posts/create" id="new-post-form" method="POST">
+      <textarea
+        id="post-form-content"
+        name="content"
+        cols="30"
+        rows="3"
+        placeholder="Type Here."
+      ></textarea>
+      <input type="submit" value="Post" />
+    </form>
+    <% } %>
+
+    <div id="posts">
+      <% for(post of posts){ %> <%- include('_post') -%>
+      <!--distributing the code into partials-->
+
+      <% } %>
+    </div>
+  </section>
+
+  <section id="user-friends">
+    <h4>Friends</h4>
+    <% for(u of all_users) { %>
+    <p id="friends">
+      <a href="/users/profile/<%=u.id %>"><%= u.name %> </a>
+    </p>
+
+    <% } %>
+  </section>
+</div>
+
+<script src="/js/home_post.js"></script>
+<script src="/js/ajax_comments.js"></script>
